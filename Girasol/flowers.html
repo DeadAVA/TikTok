@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Flores para ti</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center;
+            background-color: antiquewhite;
+            height: 100vh;
+            min-height: 100vh;
+            height: -webkit-fill-available; /* Para asegurar que funcione bien en iOS */
+            margin: 0;
+            position: relative; /* Necesario para el z-index del texto */
+            overflow: hidden; /* Evita el deslizamiento */
+            transition: background 1s ease;
+        }
+
+        #flowerContainer {
+            display: flex; /* Cambiado a flex para organizar en fila */
+            flex-direction: row; /* Alinea los hijos en fila */
+            justify-content: space-around; /* Espaciado entre las flores */
+            width: 100%; /* Ocupa todo el ancho disponible */
+            height: 300px; /* Altura fija para el contenedor de flores */
+        }
+
+        .container {
+            position: relative;
+            width: 200px;
+            height: 300px;
+            display: -webkit-flex;
+            display: flex;
+            left: 100px;
+            top: 30%;
+            -webkit-justify-content: center; /* Centra horizontalmente dentro de .pingu */
+            justify-content: center;
+            -webkit-align-items: center;    /* Centra verticalmente dentro de .pingu */
+            align-items: center;
+        }
+
+        .base {
+            position: absolute;
+            width: 200%;
+            height: 40%;
+            top: 70%;
+            background-color: #20a01b;
+            z-index: 2;
+        }
+
+        .dirt {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 40%;
+            background-color: #886106;
+            z-index: 3;
+        }
+
+        .plant {
+            height: 300px;
+            width: 10px;
+            position: absolute;
+            left: 0;
+            right: 0;
+            background: #0aaf05;
+            z-index: 1;
+            -webkit-transform-origin: center bottom;
+            transform-origin: center bottom;
+            -webkit-animation: lean 3s 0.5s infinite;
+            animation: lean 3s 0.5s infinite;
+            will-change: transform;
+        }
+
+        .centerPlant {
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            top: -55px;
+            left: -32px;
+            border-radius: 50px;
+            background-color: rgb(117, 66, 39);
+            z-index: 1;
+        }
+
+        .backcenter {
+            width: 140px;
+            height: 120px;
+            position: relative;
+            left: -60px;
+            top: -80px;
+            border-radius: 80px;
+            background-color: rgb(240, 240, 12);
+            z-index: 0;
+        }
+
+        .FaceFlower1 {
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            top: 120px;
+            border-radius: 100px 10px 100px 10px;
+            background-color: #0aaf05;
+        }
+
+        .FaceFlower2 {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            top: 150px;
+            left: -55px;
+            border-radius: 10px 100px 10px 100px;
+            background-color: #0aaf05;
+        }
+
+        .Petals {
+            width: 40px;
+            height: 70px;
+            left: 15px;
+            position: absolute;
+            border-radius: 90px 10px 80px 10px;
+            background-color: yellow;
+        }
+        .petal1 { transform: rotate(0deg) translate(70px); }
+        .petal2 { transform: rotate(45deg) translate(70px); }
+        .petal3 { transform: rotate(90deg) translate(70px); }
+        .petal4 { transform: rotate(135deg) translate(70px); }
+        .petal5 { transform: rotate(180deg) translate(70px); }
+        .petal6 { transform: rotate(225deg) translate(70px); }
+        .petal7 { transform: rotate(270deg) translate(70px); }
+        .petal8 { transform: rotate(315deg) translate(70px); }
+    
+        @keyframes lean {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-5deg); }
+        }
+
+        @-webkit-keyframes lean {
+            0%, 100% { -webkit-transform: rotate(0deg); }
+            50% { -webkit-transform: rotate(-5deg); }
+        }
+
+        
+        h1 {
+            margin: 0; /* Elimina el margen por defecto */
+            padding: 0 0 20px; /* Espacio abajo del título */
+            font-size: 24px; /* Tamaño del texto */
+        }
+
+        .imagen {
+            width: 300px; /* Ancho deseado de la imagen */
+            height: 300px; /* Alto deseado de la imagen */
+            margin-bottom: 20px; /* Espacio entre la imagen y el botón */
+        }
+
+        .boton-container {
+            margin-top: 20px; /* Espacio entre el botón y la imagen */
+        }
+
+        .boton {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton:hover {
+            background-color: #0056b3;
+        }
+
+        #texto2 {
+            font-size: 24px;
+            white-space: pre-wrap; /* Mantiene el formato de espacio y saltos de línea */
+        }
+
+        .posicion{
+            position: absolute;
+            top: 20%;
+        }
+
+        /* Estilo para pantallas grandes */
+        @media screen and (max-width: 1024px) {
+            .container {
+                width: 150px;
+                top: 50%;
+                left: 60px;
+                height: 225px;
+            }
+
+            .plant {
+                height: 225px;
+                width: 8px;
+            }
+
+            .centerPlant {
+                width: 50px;
+                height: 50px;
+                top: -50px;
+                left: -25px;
+            }
+
+            .backcenter {
+                width: 90px;
+                height: 80px;
+                left: -46px;
+                top: -70px;
+            }
+
+            .FaceFlower1 {
+                width: 50px;
+                height: 50px;
+                top: 100px;
+            }
+
+            .FaceFlower2 {
+                width: 45px;
+                height: 45px;
+                top: 120px;
+                left: -40px;
+            }
+
+            #flowerContainer {
+                justify-content: space-around;
+            }
+
+            .Petals {
+                width: 30px;
+                height: 40px;
+                top: 0.5px;
+                left: 10px;
+            }
+
+            .petal1 { transform: rotate(0deg)   translate(50px); }
+            .petal2 { transform: rotate(45deg)  translate(50px); }
+            .petal3 { transform: rotate(90deg)  translate(50px); }
+            .petal4 { transform: rotate(135deg) translate(50px); }
+            .petal5 { transform: rotate(180deg) translate(50px); }
+            .petal6 { transform: rotate(225deg) translate(50px); }
+            .petal7 { transform: rotate(270deg) translate(50px); }
+            .petal8 { transform: rotate(315deg) translate(50px); }
+
+            .base {
+                width: 105%;
+                height: 100%;
+            }
+            .dirt {
+                width: 100%;
+                height: 85%;
+                top: 15%;
+            }
+        }
+
+        /* Estilo para pantallas de móvil */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 110px;
+                height: 150px;
+                left: 55px;
+                top: 80%;
+                margin-top: 0px;
+            }
+
+            .plant {
+                height: 445px;
+                width: 5px;
+            }
+
+            .centerPlant {
+                width: 35px;
+                height: 35px;
+                top: 25px;
+                left: -15px;
+            }
+
+            .backcenter {
+                width: 70px;
+                height: 60px;
+                left: -30px;
+                top: 15px;
+            }
+
+            .FaceFlower1 {
+                width: 35px;
+                height: 35px;
+                top: 80px;
+                top: 30%;
+            }
+
+            .FaceFlower2 {
+                width: 30px;
+                height: 30px;
+                top: 50%;
+                left: -30px;
+            }
+
+            .Petals {
+                width: 20px;
+                height: 35px;
+                left: 7px;
+            }
+
+            .petal1 { transform: rotate(0deg)   translate(35px); }
+            .petal2 { transform: rotate(45deg)  translate(35px); }
+            .petal3 { transform: rotate(90deg)  translate(35px); }
+            .petal4 { transform: rotate(135deg) translate(35px); }
+            .petal5 { transform: rotate(180deg) translate(35px); }
+            .petal6 { transform: rotate(225deg) translate(35px); }
+            .petal7 { transform: rotate(270deg) translate(35px); }
+            .petal8 { transform: rotate(315deg) translate(35px); }
+
+            #flowerContainer {
+                justify-content: space-evenly;
+                flex-wrap: wrap-reverse;
+            }
+
+            .base {
+                top: 85%;
+                width: 112%;
+                height: 20%;
+            }
+            .dirt {
+                width: 100%;
+                height: 80%;
+                top: 20%;
+            }
+
+            #texto2 {
+                font-size: 14px;
+                text-align: center;
+                white-space: pre-wrap; /* Mantiene el formato de espacio y saltos de línea */
+            }
+
+            .posicion{
+                position: absolute;
+                top: 10%;
+            }
+        }
+
+        
+        .Inicio {
+            display: flex;
+            flex-direction: column; /* Organiza los elementos en una columna */
+            justify-content: center; /* Centra verticalmente */
+            align-items: center; /* Centra horizontalmente */
+            background-color: antiquewhite;
+            height: 100vh; /* Altura completa de la ventana del navegador */
+            text-align: center; /* Centra el texto */
+        }
+
+        .Inicio {
+            display: flex;
+            flex-direction: column; /* Organiza los elementos en una columna */
+            justify-content: center; /* Centra verticalmente */
+            align-items: center; /* Centra horizontalmente */
+            background-color: antiquewhite;
+            height: 100vh; /* Altura completa de la ventana del navegador */
+            text-align: center; /* Centra el texto */
+            position: absolute; /* Posiciona el contenedor en relación a la ventana del navegador */
+            top: 50%; /* Ajusta la posición vertical al centro */
+            left: 50%; /* Ajusta la posición horizontal al centro */
+            transform: translate(-50%, -50%); /* Ajusta el punto de referencia al centro */
+        }
+
+
+        @keyframes sunrise {
+            0% {
+                background: linear-gradient(to top, #2e2e2e, #000000); /* Oscuro al inicio */
+            }
+            1% {
+                background: linear-gradient(to top, #313131, #080808); 
+            }
+            2% {
+                background: linear-gradient(to top, #353535, #101010); 
+            }
+            3% {
+                background: linear-gradient(to top, #393939, #181818); 
+            }
+            4% {
+                background: linear-gradient(to top, #3d3d3d, #202020); 
+            }
+            5% {
+                background: linear-gradient(to top, #414141, #282828); 
+            }
+            6% {
+                background: linear-gradient(to top, #444444, #303030); 
+            }
+            7% {
+                background: linear-gradient(to top, #484848, #383838); 
+            }
+            8% {
+                background: linear-gradient(to top, #4c4c4c, #404040); 
+            }
+            9% {
+                background: linear-gradient(to top, #505050, #484848); 
+            }
+            10% {
+                background: linear-gradient(to top, #545454, #505050); 
+            }
+            11% {
+                background: linear-gradient(to top, #585858, #585858); 
+            }
+            12% {
+                background: linear-gradient(to top, #5c5c5c, #606060); 
+            }
+            13% {
+                background: linear-gradient(to top, #606060, #686868); 
+            }
+            14% {
+                background: linear-gradient(to top, #636363, #707070); 
+            }
+            15% {
+                background: linear-gradient(to top, #676767, #787878); 
+            }
+            16% {
+                background: linear-gradient(to top, #6b6b6b, #808080); 
+            }
+            17% {
+                background: linear-gradient(to top, #6f6f6f, #888888); 
+            }
+            18% {
+                background: linear-gradient(to top, #737373, #909090); 
+            }
+            19% {
+                background: linear-gradient(to top, #777777, #989898); 
+            }
+            20% {
+                background: linear-gradient(to top, #7b7b7b, #a0a0a0); 
+            }
+            21% {
+                background: linear-gradient(to top, #7f7f7f, #a8a8a8); 
+            }
+            22% {
+                background: linear-gradient(to top, #838383, #b0b0b0); 
+            }
+            23% {
+                background: linear-gradient(to top, #878787, #b8b8b8); 
+            }
+            24% {
+                background: linear-gradient(to top, #8b8b8b, #c0c0c0); 
+            }
+            25% {
+                background: linear-gradient(to top, #8f8f8f, #c8c8c8); 
+            }
+            26% {
+                background: linear-gradient(to top, #939393, #d0d0d0); 
+            }
+            27% {
+                background: linear-gradient(to top, #979797, #d8d8d8); 
+            }
+            28% {
+                background: linear-gradient(to top, #9b9b9b, #e0e0e0); 
+            }
+            29% {
+                background: linear-gradient(to top, #9f9f9f, #e8e8e8); 
+            }
+            30% {
+                background: linear-gradient(to top, #a3a3a3, #f0f0f0); 
+            }
+            31% {
+                background: linear-gradient(to top, #a7a7a7, #f8f8f8); 
+            }
+            32% {
+                background: linear-gradient(to top, #ababab, #ffffff); 
+            }
+            33% {
+                background: linear-gradient(to top, #afafaf, #fffcfc); 
+            }
+            34% {
+                background: linear-gradient(to top, #b3b3b3, #fff9f9); 
+            }
+            35% {
+                background: linear-gradient(to top, #b7b7b7, #fff6f6); 
+            }
+            36% {
+                background: linear-gradient(to top, #bbbbbb, #fff3f3); 
+            }
+            37% {
+                background: linear-gradient(to top, #bfbfbf, #fff0f0); 
+            }
+            38% {
+                background: linear-gradient(to top, #c3c3c3, #ffeded); 
+            }
+            39% {
+                background: linear-gradient(to top, #c7c7c7, #ffeaea); 
+            }
+            40% {
+                background: linear-gradient(to top, #cbcbcb, #ffe7e7); 
+            }
+            41% {
+                background: linear-gradient(to top, #cfcfcf, #ffe4e4); 
+            }
+            42% {
+                background: linear-gradient(to top, #d3d3d3, #ffe1e1); 
+            }
+            43% {
+                background: linear-gradient(to top, #d7d7d7, #ffdedc); 
+            }
+            44% {
+                background: linear-gradient(to top, #dbdbdb, #ffdbd9); 
+            }
+            45% {
+                background: linear-gradient(to top, #dfdfdf, #ffd8d6); 
+            }
+            46% {
+                background: linear-gradient(to top, #e3e3e3, #ffd5d3); 
+            }
+            47% {
+                background: linear-gradient(to top, #e7e7e7, #ffd2d0); 
+            }
+            48% {
+                background: linear-gradient(to top, #ebebeb, #ffcfcd); 
+            }
+            49% {
+                background: linear-gradient(to top, #efefef, #ffccc9); 
+            }
+            50% {
+                background: linear-gradient(to top, #f3f3f3, #ffc9c6); /* Amanecer suave */
+            }
+            51% {
+                background: linear-gradient(to top, #f6a1a1, #f0d1d1); /* Más luz */
+            }
+            52% {
+                background: linear-gradient(to top, #f69898, #e8c8c8);
+            }
+            53% {
+                background: linear-gradient(to top, #f78e8e, #e0bfbf);
+            }
+            54% {
+                background: linear-gradient(to top, #f78585, #d8b6b6);
+            }
+            55% {
+                background: linear-gradient(to top, #f77b7b, #d0adad);
+            }
+            56% {
+                background: linear-gradient(to top, #f77272, #c8a4a4);
+            }
+            57% {
+                background: linear-gradient(to top, #f76868, #c09b9b);
+            }
+            58% {
+                background: linear-gradient(to top, #f75f5f, #b89292);
+            }
+            59% {
+                background: linear-gradient(to top, #f75656, #b08989);
+            }
+            60% {
+                background: linear-gradient(to top, #f74d4d, #a88080);
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="Inicio">
+        <h1 id="texto"> Oye queria decirte algo....</h1> 
+        <img src="https://i.imgur.com/0SKWFA3.jpg" class="imagen" id="imagen" alt="Imagen"/>
+        <div class="boton-container">
+            <button id="miBoton" class="boton">Aqui amor</button>
+        </div>
+    </div>
+    <div class="posicion" id="texto2"></div>
+    <div id="flowerContainer"></div>
+    <div class="base">
+        <div class="dirt"></div>
+    </div>
+    
+    <script>
+        const pasto = document.querySelector('.base');
+        const dirt = document.querySelector('.dirt');
+        pasto.style.display ='none';
+
+        const texto = document.getElementById('texto');
+        const boton = document.getElementById('miBoton');
+        const imagen = document.getElementById('imagen');
+
+        const textoElemento = document.getElementById('texto2');
+        const texto2 = "Tu sonrisa es más hermosa que un campo de girasoles,  Preciosota. ❤️😘";
+        const velocidad = 50; // Velocidad en milisegundos
+
+            // Array de URLs de imágenes
+            const imagenes = [
+                'https://i.imgur.com/oteaiPx.jpg',// Imagen 1
+                'https://i.imgur.com/ezC3iN5.jpg' // Imagen 2
+            ];
+
+            // Índice de la imagen actual
+            let indiceImagen = 0;
+
+            boton.addEventListener('click', () => {
+                texto.textContent = "Pero no se si estas lista, En vdd estas lista?";
+                boton.textContent = "Segura??";
+                // Cambia la imagen actual al siguiente índice
+                indiceImagen = (indiceImagen + 1) % imagenes.length;
+                imagen.src = imagenes[indiceImagen];
+                boton.addEventListener('click',() =>{
+                    texto.textContent = "Bueno, estas bajo tu propio riesgo";
+                    boton.textContent = "Presiona aqui guapota";
+                    boton.addEventListener('click' , () =>{
+                        document.body.style.animation = 'sunrise 10s ease-in-out forwards';
+                        pasto.style.display = 'block';
+                        texto.style.display = 'none';
+                        boton.style.display = 'none';
+                        imagen.style.display = 'none';
+
+
+                        function escribirTexto(elemento, texto, velocidad) {
+                            let i = 0;
+                            const intervalo = setInterval(() => {
+                                if (i < texto.length) {
+                                    elemento.innerHTML += texto.charAt(i);
+                                    i++;
+                                } else {
+                                    clearInterval(intervalo); // Detiene el intervalo cuando se ha completado el texto
+                                }
+                            }, velocidad);
+                        }
+
+                        function createFlower() {
+                            const container = document.createElement('div');
+                            container.className = 'container';
+                            const plant = document.createElement('div');
+                            plant.className = 'plant';
+                            const centerPlant = document.createElement('div');
+                            centerPlant.className = 'centerPlant';
+                            const backcenter = document.createElement('div');
+                            backcenter.className = 'backcenter';
+                            const faceFlower1 = document.createElement('div');
+                            faceFlower1.className = 'FaceFlower1';
+                            const faceFlower2 = document.createElement('div');
+                            faceFlower2.className = 'FaceFlower2';
+                            container.appendChild(plant);
+                            plant.appendChild(centerPlant);
+                            plant.appendChild(backcenter);
+                            plant.appendChild(faceFlower1);
+                            plant.appendChild(faceFlower2);
+                            // Adding petals
+                            for (let i = 1; i <= 8; i++) {
+                                const petal = document.createElement('div');
+                                petal.className = 'Petals petal' + i;
+                                centerPlant.appendChild(petal);
+                            }
+
+                            return container;
+                        }
+                        const flowerContainer = document.getElementById('flowerContainer');
+                        for (let i = 0; i < 6; i++) {
+                            flowerContainer.appendChild(createFlower());
+                        }
+                        escribirTexto(textoElemento, texto2, velocidad);
+                    });
+                });
+
+            });  
+    </script>
+</body>
+</html>
